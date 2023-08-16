@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HelloFormApplication {
+public class HelloFormValidationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HelloFormApplication.class, args);
+		SpringApplication.run(HelloFormValidationApplication.class, args);
 	}
 }
