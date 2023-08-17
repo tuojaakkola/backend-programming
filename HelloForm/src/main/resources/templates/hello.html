@@ -13,8 +13,7 @@
         </tr>
         <tr>
         	<td>Message: <input type="text" th:field="*{msg}" /></td>
-        	<td th:if="${#fields.hasErrors('msg')}" th:errors="*{msg}">Error</td>
-        </tr>
+        	
         </table>
         <p><input type="submit" value="Submit" /></p>
     </form>
