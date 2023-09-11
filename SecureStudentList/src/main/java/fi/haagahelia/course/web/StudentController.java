@@ -58,6 +58,11 @@ public class StudentController {
     }    
 
     // Delete student
+    // TODO: 
+    // a) try to delete student  (with USER ROLE)
+    // b) @PreAuthorize delete only for ADMIN ROLE
+    // c) try to delete student again  (with USER ROLE)
+    
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
     	repository.deleteById(studentId);
