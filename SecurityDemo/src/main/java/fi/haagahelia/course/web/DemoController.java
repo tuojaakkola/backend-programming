@@ -18,10 +18,6 @@ public class DemoController {
     
     @RequestMapping(value="/hello")
 	public String helloSecure(Model model) {
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = user.getUsername();
-		System.out.println("USERNAME: " + username);
-    	model.addAttribute("name", username);
 		return "hello";
 	}
     
