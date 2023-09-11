@@ -1,5 +1,8 @@
 package fi.haagahelia.course;
 
+//import static method antMatcher
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,23 +20,30 @@ public class WebSecurityConfig  {
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
 	
+	// using lambda 
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests().requestMatchers("/css/**").permitAll()
-		.and()
-		.authorizeHttpRequests().requestMatchers("/signup", "/saveuser").permitAll()
-		.and()
-		.authorizeHttpRequests().anyRequest().authenticated()
-		.and()
-		.headers().frameOptions().disable() //for h2 console			
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/studentlist", true)
-		.permitAll()
-		.and()
-		.logout().permitAll();
+		http
+		.authorizeHttpRequests(authorize -> authorize
+				.requestMatchers(antMatcher("/css/**")).permitAll()
+				.requestMatchers(antMatcher("/signup")).permitAll()
+				.requestMatchers(antMatcher("/saveuser")).permitAll()
+				.anyRequest().authenticated()
+		)
+		.headers(headers -> headers
+				.frameOptions(frameoptions -> 
+				frameoptions.disable() //for h2 console			
+			    )
+		)
+		.formLogin(formlogin -> formlogin
+				.loginPage("/login")
+				.defaultSuccessUrl("/studentlist", true)
+				.permitAll()
+		)
+		.logout(logout -> logout
+				.permitAll()
+		);
 				
 		return http.build();
 	}

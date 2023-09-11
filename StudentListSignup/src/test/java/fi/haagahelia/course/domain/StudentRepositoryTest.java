@@ -1,4 +1,4 @@
-package fi.haagahelia.course;
+package fi.haagahelia.course.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import fi.haagahelia.course.domain.Department;
 import fi.haagahelia.course.domain.Student;
