@@ -12,6 +12,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import fi.haagahelia.course.web.UserDetailServiceImpl;
 
+//import static method antMatcher
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig  {
@@ -21,18 +24,24 @@ public class WebSecurityConfig  {
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests().requestMatchers("/css/**").permitAll()
-		.and()
-		.authorizeHttpRequests().anyRequest().authenticated()
-		.and()
-		.headers().frameOptions().disable() //for h2 console			
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/studentlist", true)
-		.permitAll()
-		.and()
-		.logout().permitAll();
+		http.
+		authorizeHttpRequests(authorize -> authorize
+				.requestMatchers(antMatcher("/css/**")).permitAll()
+				.anyRequest().authenticated()
+		)
+		.headers(headers -> headers
+			    .frameOptions(frameOptions -> frameOptions  // for h2console
+			        .disable()
+			    )
+		)
+		.formLogin(formlogin -> formlogin
+				.loginPage("/login")
+				.defaultSuccessUrl("/studentlist", true)
+				.permitAll()
+		)
+		.logout(logout -> logout
+				.permitAll()
+		);		
 				
 		return http.build();
 	}

@@ -35,10 +35,7 @@ public class StudentController {
 	// Show all students
     @RequestMapping(value="/studentlist")
     public String studentList(Model model) {
-    	UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = user.getUsername();
-		System.out.println("JUKKA: " + username);
-    	model.addAttribute("name", username);
+  	
         model.addAttribute("students", repository.findAll());
         return "studentlist";
     }
