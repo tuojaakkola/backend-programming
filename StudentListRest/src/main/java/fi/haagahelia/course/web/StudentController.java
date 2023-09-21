@@ -45,7 +45,7 @@ public class StudentController {
     
     // Add new student
     @RequestMapping(value = "/add")
-    public String addStudent(Model model){
+    public String showAddStudentForm(Model model){
     	model.addAttribute("student", new Student());
     	model.addAttribute("departments", drepository.findAll());
         return "addstudent";
