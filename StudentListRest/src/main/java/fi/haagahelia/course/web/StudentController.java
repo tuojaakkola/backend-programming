@@ -63,5 +63,6 @@ public class StudentController {
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
     	repository.deleteById(studentId);
         return "redirect:../studentlist";
-    }     
+    } 
+ 
 }
