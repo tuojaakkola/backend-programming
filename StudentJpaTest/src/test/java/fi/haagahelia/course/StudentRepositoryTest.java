@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Test;
 
 import fi.haagahelia.course.domain.Department;
+import fi.haagahelia.course.domain.DepartmentRepository;
 import fi.haagahelia.course.domain.Student;
 import fi.haagahelia.course.domain.StudentRepository;
 
@@ -28,6 +29,9 @@ public class StudentRepositoryTest {
     @Autowired
     private StudentRepository repository;
 
+    @Autowired
+    private DepartmentRepository drepository;
+    
     @Test
     public void findByLastnameShouldReturnStudent() {
         List<Student> students = repository.findByLastName("Johnson");
@@ -38,7 +42,9 @@ public class StudentRepositoryTest {
     
     @Test
     public void createNewStudent() {
-    	Student student = new Student("Mickey", "Mouse", "mm@mouse.com", new Department("BITE"));
+    	Department department = new Department("BITE");
+    	drepository.save(department);
+    	Student student = new Student("Mickey", "Mouse", "mm@mouse.com", department);
     	repository.save(student);
     	assertThat(student.getId()).isNotNull();
     }    

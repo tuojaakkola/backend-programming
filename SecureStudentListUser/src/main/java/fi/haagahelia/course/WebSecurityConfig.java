@@ -1,6 +1,5 @@
 package fi.haagahelia.course;
 
-
 //import static method antMatcher
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -17,37 +16,26 @@ import fi.haagahelia.course.web.UserDetailServiceImpl;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
-public class WebSecurityConfig  {
+public class WebSecurityConfig {
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
-	
+
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-		
-		http.
-		authorizeHttpRequests(authorize -> authorize
-				.requestMatchers(antMatcher("/css/**")).permitAll()
-				.anyRequest().authenticated()
-		)
-		.headers(headers -> headers
-			    .frameOptions(frameOptions -> frameOptions  // for h2console
-			        .disable()
-			    )
-		)
-		.formLogin(formlogin -> formlogin
-				.loginPage("/login")
-				.defaultSuccessUrl("/studentlist", true)
-				.permitAll()
-		)
-		.logout(logout -> logout
-				.permitAll()
-		);		
-				
+
+		http.authorizeHttpRequests(
+				authorize -> authorize.requestMatchers(antMatcher("/css/**")).permitAll().anyRequest().authenticated())
+				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions // for h2console
+						.disable()))
+				.formLogin(
+						formlogin -> formlogin.loginPage("/login").defaultSuccessUrl("/studentlist", true).permitAll())
+				.logout(logout -> logout.permitAll());
+
 		return http.build();
 	}
-
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-	}}
+	}
+}
