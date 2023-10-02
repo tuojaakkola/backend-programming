@@ -14,7 +14,7 @@ import fi.haagahelia.course.web.HelloController;
  * @author h01270
  *
  */
-//@ExtendWith(SpringExtension.class) not needed when using JUnit5
+
 @SpringBootTest
 public class HellotestApplicationTests {
 
