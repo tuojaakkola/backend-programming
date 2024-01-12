@@ -14,7 +14,8 @@ public class MessageController {
 
     @RequestMapping(value="/hello", method=RequestMethod.GET)
     public String greetingForm(Model model) {
-        model.addAttribute("message", new Message());
+    	System.out.println("hello hello");
+    	model.addAttribute("message", new Message());
         return "hello";
     }
 
