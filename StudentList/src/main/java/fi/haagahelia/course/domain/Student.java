@@ -14,7 +14,7 @@ public class Student {
     private String lastName;
     private String email;
 
-    protected Student() {}
+    public Student() {}
 
 	public Student(String firstName, String lastName, String email) {
 		super();

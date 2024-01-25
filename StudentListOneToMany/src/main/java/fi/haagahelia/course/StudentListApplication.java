@@ -25,12 +25,19 @@ public class StudentListApplication {
 	public CommandLineRunner studentDemo(StudentRepository srepository, DepartmentRepository drepository) {
 		return (args) -> {
 			log.info("save a couple of students");
-			drepository.save(new Department("IT"));
-			drepository.save(new Department("Business"));
-			drepository.save(new Department("Law"));
 			
-			srepository.save(new Student("John", "Johnson", "john@john.com", drepository.findByName("IT").get(0)));
-			srepository.save(new Student("Katy", "Kateson", "kate@kate.com", drepository.findByName("Business").get(0)));	
+			
+			Department department1 = new Department("IT");
+			Department department2 = new Department("Business");
+			Department department3 = new Department("Law");
+			
+			drepository.save(department1);
+			drepository.save(department2);
+			drepository.save(department3);
+			
+			
+			srepository.save(new Student("John", "Johnson", "john@john.com", department1));
+			srepository.save(new Student("Katy", "Kateson", "kate@kate.com", department2));	
 			
 			log.info("fetch all students");
 			for (Student student : srepository.findAll()) {
