@@ -15,12 +15,8 @@ import fi.haagahelia.course.domain.AppUserRepository;
  **/
 @Service
 public class UserDetailServiceImpl implements UserDetailsService  {
-	private final AppUserRepository repository;
-
-	@Autowired
-	public UserDetailServiceImpl(AppUserRepository userRepository) {
-		this.repository = userRepository;
-	}
+	@Autowired 
+	AppUserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {   
