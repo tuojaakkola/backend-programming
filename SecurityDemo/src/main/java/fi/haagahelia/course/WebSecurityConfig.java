@@ -1,22 +1,20 @@
 package fi.haagahelia.course;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class WebSecurityConfig  {
-	
+	/*
+     * In this demo we don't create in-memory users nor users to database.
+     * 
+     * we are using credentials spring boot is offering 
+     * when starting the application. 
+     * username = user and password you can check from the terminal/console
+     * Example: Using generated security password: 0c13dd0e-a5bf-480c-8b75-e6393064a2e6
+     */
 	@Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
@@ -37,25 +35,4 @@ public class WebSecurityConfig  {
     }
 
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        List<UserDetails> users = new ArrayList();
-    	UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("user")
-                .roles("USER")
-                .build();
-
-    	users.add(user);
-    	
-    	user = User.withDefaultPasswordEncoder()
-                   .username("admin")
-                   .password("admin")
-                   .roles("USER", "ADMIN")
-                   .build();
-    	
-    	users.add(user);
-    	
-        return new InMemoryUserDetailsManager(users);
-    }
 }
