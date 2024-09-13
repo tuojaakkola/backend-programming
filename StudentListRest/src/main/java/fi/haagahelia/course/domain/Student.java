@@ -16,6 +16,7 @@ public class Student {
     private String lastName;
     private String email;
     
+    // @JsonIgnoreProperties ("students") 
     @ManyToOne
     @JoinColumn(name = "departmentid")
     private Department department;

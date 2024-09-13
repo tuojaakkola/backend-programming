@@ -19,49 +19,49 @@ import fi.haagahelia.course.domain.StudentRepository;
 public class StudentController {
 	
 	@Autowired
-	private StudentRepository repository; 
+	private StudentRepository studentRepository; 
 
 	@Autowired
-	private DepartmentRepository drepository; 
+	private DepartmentRepository departmentRepository; 
 	
 	// Show all students
     @RequestMapping(value="/studentlist")
     public String studentList(Model model) {	
-        model.addAttribute("students", repository.findAll());
+        model.addAttribute("students", studentRepository.findAll());
         return "studentlist";
     }
   
 	// RESTful service to get all students
     @RequestMapping(value="/students", method = RequestMethod.GET)
     public @ResponseBody List<Student> studentListRest() {	
-        return (List<Student>) repository.findAll();
+        return (List<Student>) studentRepository.findAll();
     }    
 
 	// RESTful service to get student by id
     @RequestMapping(value="/student/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Student> findStudentRest(@PathVariable("id") Long studentId) {	
-    	return repository.findById(studentId);
+    	return studentRepository.findById(studentId);
     }       
     
     // Add new student
     @RequestMapping(value = "/add")
     public String showAddStudentForm(Model model){
     	model.addAttribute("student", new Student());
-    	model.addAttribute("departments", drepository.findAll());
+    	model.addAttribute("departments", departmentRepository.findAll());
         return "addstudent";
     }     
     
     // Save new student
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Student student){
-        repository.save(student);
+        studentRepository.save(student);
         return "redirect:studentlist";
     }    
 
     // Delete student
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
-    	repository.deleteById(studentId);
+    	studentRepository.deleteById(studentId);
         return "redirect:../studentlist";
     } 
  

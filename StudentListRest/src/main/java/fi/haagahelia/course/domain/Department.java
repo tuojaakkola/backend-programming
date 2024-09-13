@@ -21,6 +21,7 @@ public class Department {
 	private String name;
 	
 	@JsonIgnore
+	// or @JsonIgnoreProperties ("department") 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
 	private List<Student> students;
 	
