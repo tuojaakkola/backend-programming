@@ -11,18 +11,28 @@ import fi.haagahelia.course.web.HelloController;
 /**
  * Testing that the context is creating your controller
  * 
- * @author h01270
+ * (inserted also context test, 26.9.24) 
+ * 
+ * @author h01270, updated by h01340 26.9.2024
  *
  */
 
 @SpringBootTest
 public class HellotestApplicationTests {
 
+    private final HelloController controller;
+
     @Autowired
-    private HelloController controller;
+    public HellotestApplicationTests(HelloController controller) {
+        this.controller = controller;
+    }
 
     @Test
-    public void contexLoads() throws Exception {
+	void contextLoads() {
+	}
+
+    @Test
+    public void controllerLoads() throws Exception {
         assertThat(controller).isNotNull();
     }	
 }
