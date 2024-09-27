@@ -1,8 +1,5 @@
 package fi.haagahelia.course;
 
-
-
-
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,6 @@ package fi.haagahelia.course.web;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,61 +19,62 @@ import fi.haagahelia.course.domain.StudentRepository;
 
 @Controller
 public class StudentController {
-	@Autowired
-	private StudentRepository repository; 
+    private final StudentRepository repository;
+    private final DepartmentRepository drepository;
 
-	@Autowired
-	private DepartmentRepository drepository; 
-	
-	// Show all students
-    @RequestMapping(value="/login")
-    public String login() {	
+    public StudentController(StudentRepository repository, DepartmentRepository drepository) {
+        this.repository = repository;
+        this.drepository = drepository;
+    }
+
+    // Show all students
+    @RequestMapping(value = "/login")
+    public String login() {
         return "login";
-    }	
-	
-	// Show all students
-    @RequestMapping(value="/studentlist")
+    }
+
+    // Show all students
+    @RequestMapping(value = "/studentlist")
     public String studentList(Model model) {
-    	UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = user.getUsername();
-		System.out.println("USERNAME: " + username);
-    	model.addAttribute("name", username);
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("USERNAME: " + user.getUsername());
+        model.addAttribute("name", user.getUsername());
         model.addAttribute("students", repository.findAll());
         return "studentlist";
     }
-  
-	// RESTful service to get all students
-    @RequestMapping(value="/students")
-    public @ResponseBody List<Student> studentListRest() {	
-        return (List<Student>) repository.findAll();
-    }    
 
-	// RESTful service to get student by id
-    @RequestMapping(value="/student/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Student> findStudentRest(@PathVariable("id") Long studentId) {	
-    	return repository.findById(studentId);
-    }       
-    
+    // RESTful service to get all students
+    @RequestMapping(value = "/students")
+    public @ResponseBody List<Student> studentListRest() {
+        return (List<Student>) repository.findAll();
+    }
+
+    // RESTful service to get student by id
+    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Student> findStudentRest(@PathVariable("id") Long studentId) {
+        return repository.findById(studentId);
+    }
+
     // Add new student
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add")
-    public String addStudent(Model model){
-    	model.addAttribute("student", new Student());
-    	model.addAttribute("departments", drepository.findAll());
+    public String addStudent(Model model) {
+        model.addAttribute("student", new Student());
+        model.addAttribute("departments", drepository.findAll());
         return "addstudent";
-    }     
-    
+    }
+
     // Save new student
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Student student){
+    public String save(Student student) {
         repository.save(student);
         return "redirect:studentlist";
-    }    
+    }
 
     // Delete student
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteStudent(@PathVariable("id") Long studentId, Model model) {
-    	repository.deleteById(studentId);
+        repository.deleteById(studentId);
         return "redirect:../studentlist";
-    }     
+    }
 }

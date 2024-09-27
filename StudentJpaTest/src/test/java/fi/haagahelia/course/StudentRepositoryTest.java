@@ -7,10 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Test;
 
 import fi.haagahelia.course.domain.Department;
@@ -19,13 +16,12 @@ import fi.haagahelia.course.domain.Student;
 import fi.haagahelia.course.domain.StudentRepository;
 
 
-//@DataJpaTest
-
-//@ExtendWith(SpringExtension.class)
+//@DataJpaTest //if you are using in-memory database, like H2
 @SpringBootTest(classes = StudentListApplication.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //if you are using real db
 public class StudentRepositoryTest {
 
+    //in test cases field injection can be used
     @Autowired
     private StudentRepository repository;
 
