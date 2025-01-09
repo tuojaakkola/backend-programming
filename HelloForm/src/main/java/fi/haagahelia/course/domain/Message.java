@@ -2,14 +2,14 @@ package fi.haagahelia.course.domain;
 
 
 public class Message {
-	private long id;
+	private Long id;
 
 	private String msg;
 	
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getMsg() {
