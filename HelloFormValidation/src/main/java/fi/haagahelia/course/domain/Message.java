@@ -5,15 +5,15 @@ import jakarta.validation.constraints.Size;
 
 public class Message {
 	@NotNull
-	private long id;
+	private Long id;
 	
     @Size(min=5, max=30)
 	private String msg;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getMsg() {
