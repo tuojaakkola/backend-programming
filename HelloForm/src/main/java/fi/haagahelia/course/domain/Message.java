@@ -6,7 +6,7 @@ public class Message {
 
 	private String msg;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
