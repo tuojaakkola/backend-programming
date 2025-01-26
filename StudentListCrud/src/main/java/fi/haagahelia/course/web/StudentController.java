@@ -12,8 +12,13 @@ import fi.haagahelia.course.domain.StudentRepository;
 
 @Controller
 public class StudentController {
-	@Autowired
+	
 	private StudentRepository repository; 
+    
+    // constructor injection - works only if only one constructor
+    public StudentController(StudentRepository repository) {
+        this.repository = repository;
+    }
 	
     @RequestMapping(value= {"/", "/studentlist"})
     public String studentList(Model model) {	
